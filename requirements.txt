@@ -1,0 +1,10 @@
+opencv-python
+tkinter
+numpy
+fnmatch
+glitch-this
+pyautogui
+ctypes
+scipy
+google-images-download
+pillow
