@@ -1,5 +1,8 @@
 # SpiltCoffee
-SpiltCoffee is a massive project of mine. It is an image editor, in GUI form. You can either download an image and put it into the same folder as the py file, or you can use the built in google images downloader (requires pip module google-images-download to be installed)
+SpiltCoffee is a massive project of mine. It is an image editor, in GUI form. You can either download an image and put it into the same folder as the py file, or you can use the built in bing image downloader (requires pip module bing-image-downloader to be installed)
+
+#### If any reference of google-image-downloader are still present, remove them in the script. The module doesnt work and is stupid anyway.
+#### Same goes if you have it installed on your system, uninstall it.
  
 ## Instructions:
 1. Clone the repo.
