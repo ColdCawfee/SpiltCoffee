@@ -1,12 +1,11 @@
 from tkinter import *
 from tkinter import messagebox as mb, simpledialog as sd, filedialog as fd
-import cv2, traceback, glob, os, numpy as np, time, fnmatch, glitch_this, pyautogui, cv2.data, random, math, ctypes
+import cv2, traceback, glob, os, numpy as np, time, fnmatch, glitch_this, pyautogui, cv2.data, random, math, ctypes, shutil
 from scipy.interpolate import UnivariateSpline
 from os.path import exists
-from google_images_download import google_images_download
+from bing_image_downloader import downloader
 from PIL import Image, ImageFilter
 starter = glitch_this.ImageGlitcher()
-response = google_images_download.googleimagesdownload()
 messagebox = ctypes.windll.user32.MessageBoxW
 
 def imagepicker():
@@ -35,24 +34,22 @@ def imagepicker():
 		else:
 			query = sd.askstring("Query", "What do you want to search for?")
 			if query == "":
-				mb.showerror("Error!", "You didn't enter anything. Defaulting to the query: 'lena'.")
-				query = "lena"
+				mb.showerror("Error!", "You didn't enter anything. Please try again.")
+				return
 			if query == None:
-				mb.showerror("Error!", "You didn't enter anything. Defaulting to the query: 'lena'.")
-				query = "lena"
+				mb.showerror("Error!", "You didn't enter anything. Please try again.")
+				return
 			else:
-				filterbytransparency = mb.askyesno("Transparency filter", "Do you want to filter images by transparency?")
-				if filterbytransparency == True:
-					chosentransparency = "transparent"
-				else:
-					chosentransparency = "full-color"
-				args = {"keywords":query, "limit":1, "print_urls":False, "format":"png", "output_directory":"./", "color_type":chosentransparency}
-				response.download(args)
+				downloader.download(query, limit=1, output_dir="./", adult_filter_off=True)
 				os.chdir(f"{query}/")
 				os.chdir("..")
 				for file in glob.glob(f"{query}/*.png"):
 					if exists(file):
 						os.rename(f"{file}", "originalimage.png")
+					os.rmdir(f"{query}/")
+				for file2 in glob.glob(f"{query}/*.jpg"):
+					if exists(file2):
+						os.rename(f"{file2}", "originalimage.png")
 					os.rmdir(f"{query}/")
 				mb.showinfo("Success!", "Image downloaded successfully.")
 				imgname = "originalimage.png"
