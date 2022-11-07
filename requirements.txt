@@ -6,5 +6,5 @@ glitch-this
 pyautogui
 ctypes
 scipy
-google-images-download
+bing-image-downloader
 pillow
